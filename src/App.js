@@ -8,7 +8,7 @@ function App() {
       <Header />
       <Content />
       <Footer />
-      <p>JSX is a javascript in XML & React Template of html</p>
+      <p style={{fontsize: '10px'}}>JSX is a javascript in XML & React Template of html</p>
       <p>we can't do object in object </p>
     </div>
   );
