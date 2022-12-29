@@ -1,45 +1,56 @@
 import Header from './Header';
+import AddItem from './AddItem';
 import Content from './Content';
 import Footer from './Footer';
 import { useState } from 'react';
 
 function App() {
-  const [items, setItems] = useState([
-        {
-            id: 1,
-            checked: false,
-            item: "one half pound bag of cocoa covered"
-        },
-        {
-            id: 2,
-            checked: false,
-            item: "ITEM2"
-        },
-        {
-            id: 3,
-            checked: false,
-            item: "Item3"
-        }
-    ]);
+  const [items, setItems] = useState(JSON.parse(localStorage.getItem('shoppinglist')));
+    // CH9 control event Input
+    const [newItem, setNewItem] = useState('');
+
+    const setAndSaveItems = (newItems) => {
+      setItems(newItems);
+      localStorage.setItem('shoppinglist', JSON.stringify(newItems));
+    }
+
+    const addItem = (item) => {
+      // catch last item.id and plus one to be my new item id
+      const id = items.length ? items[items.length - 1].id + 1 : 1;
+      const myNewItem = { id, checked: false, item };
+      const listItems = [...items, myNewItem];
+      setAndSaveItems(listItems);
+    }
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      if (!newItem) return;
+      addItem(newItem)
+      console.log(newItem)
+      setNewItem('');
+    }
 
     //CH7 Lists&Keys&Maps
     const handleCheck = (id) => {
       // this id is onchange id
       const listItems = items.map((item) => item.id === id ? {...item, checked: !item.checked}: item);
-      setItems(listItems);
-      localStorage.setItem('shoppinglist', JSON.stringify(listItems));
+      setAndSaveItems(listItems);
     }
 
     const handleDelete = (id) => {
         // console.log(`this is what you delete ${id}`);
         const listItems = items.filter((item) => item.id !== id);
-        setItems(listItems);
-        localStorage.setItem('shoppinglist', JSON.stringify(listItems));
+        setAndSaveItems(listItems);
     }
 
   return (
     <div className="App">
       <Header title='Grocery List'/>
+      <AddItem 
+        newItem={newItem}
+        setNewItem={setNewItem}
+        handleSubmit={handleSubmit}
+      />
       <Content 
         items={items}
         handleCheck={handleCheck}

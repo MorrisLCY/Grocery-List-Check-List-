@@ -1,8 +1,8 @@
 import { FaTrashAlt } from 'react-icons/fa';
-
+// npm i react-icons --save; npm i react-icons --save-prod
 const LineItem = ({item, handleCheck, handleDelete}) =>{
     return(
-        <li className="item" key={item.id}>
+        <li className="item">
             <input
                 type="checkbox"
                 onChange={()=>handleCheck(item.id)}
