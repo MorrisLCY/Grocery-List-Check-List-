@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 
 function App() {
-  const [items, setItems] = useState(JSON.parse(localStorage.getItem('shoppinglist')));
+    const [items, setItems] = useState(JSON.parse(localStorage.getItem('shoppinglist')));
     // CH9 control event Input
     const [newItem, setNewItem] = useState('');
     const [search, setSearch] = useState('');
